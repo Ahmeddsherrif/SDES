@@ -3,12 +3,12 @@ Implementation of Simplified Data Encryption Standard
 
 
 ## From Terminal
-No logging - > Log/SDES.exe
-logging    - > Log/SDES.exe
+No logging - > Log/SDES.exe  
+logging    - > Log/SDES.exe  
 
 ## Input Form
-Encryptrion: SDES [E] [input secret Key] [Plain Text]
-Decryption : SDES [D] [input secret Key] [Cypher Text]
+Encryptrion: SDES [E] [input secret Key] [Plain Text]  
+Decryption : SDES [D] [input secret Key] [Cypher Text]  
 
 
 ## Output Without Logging
