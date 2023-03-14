@@ -14,7 +14,7 @@
 
 
 #define LOGGING	1
-#if LOGGING==1
+#if LOGGING==0
 #define LOG_LABEL_WITH_NEWLINE(LABEL, INPUT)		cout <<left <<setfill(' ')<<setw(PRINT_WIDTH)<<LABEL <<INPUT<< endl
 #define LOG_WITH_NEWLINE(INPUT)						cout << INPUT << endl
 #define LOG_ALLIGN(INPUT)							cout << left <<setfill(' ')<<setw(PRINT_WIDTH) <<INPUT
