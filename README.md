@@ -20,4 +20,4 @@ Decryption : SDES [D] [input secret Key] [Cypher Text]
 ![alt text](img/LOG2.PNG)
 
 ## Youtube
-Video Link: https://www.youtube.com/watch?v=9qOg9CUC8TU
+Video Link: https://www.youtube.com/watch?v=sj2jnr3wlFc
