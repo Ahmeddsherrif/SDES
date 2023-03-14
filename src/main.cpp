@@ -8,88 +8,48 @@
 
 #include "main.h"
 
-enum class Error_t {
-	NO_ERROR, INVALID_ARGUMENT_COUNT, INVAILD_PROCESS_TYPE, INVALID_SECRET_KEY, CANT_OPEN_INPUT_FILE
-};
+
+
+
 
 int main(int argc, char *argv[]) {
 
-	uint16_t ks;
+	uint8_t outputByte;
 
-	Error_t currentErrorMessage = Error_t::NO_ERROR;
+	string operationType_string = string(argv[1]);
+	string ks_string = string(argv[2]);
+	string data_string = string(argv[3]);
 
-	//Check for Argument Count Error
-	if (argc != 5) {
-		currentErrorMessage = Error_t::INVALID_ARGUMENT_COUNT;
-		cout << "INVALIED ARGUMENT COUNT" << endl;
-	}
 
-	//Check for SECRET KEY ERROR
-	if (currentErrorMessage == Error_t::NO_ERROR) {
-		string ks_string = string(argv[2]);
-		ks = static_cast<uint16_t>(stoi(ks_string));
 
-		if (ks > 1023) {
-			currentErrorMessage = Error_t::INVALID_SECRET_KEY;
-			cout << "INVALIED SECRET KEY RANGE" << endl;
-		}
-	}
+	char operationType = operationType_string[0];
+	uint16_t ks = static_cast<uint16_t>(bitset<10>(ks_string).to_ulong());
+	uint8_t data = static_cast<uint8_t>(bitset<8>(data_string).to_ulong());
 
-	vector<string> data;
-	if (currentErrorMessage == Error_t::NO_ERROR) {
-
-		string inputFileName = string(argv[3]);
-		ifstream inputFile(inputFileName);
-
-		if (inputFile.is_open()) {
-
-			string line;
-
-			while (getline(inputFile, line)) {
-				data.push_back(line);
-			}
-
-			inputFile.close();
-		} else {
-			cout << "CAN'T OPEN INPUT FILE" << endl;
-			currentErrorMessage = Error_t::CANT_OPEN_INPUT_FILE;
-		}
-	}
-
-	if (currentErrorMessage == Error_t::NO_ERROR) {
-
-		string outputFileName = string(argv[4]);
-		ofstream outputFile(outputFileName, ios::app);
-
-		string processType = string(argv[1]);
-		switch (processType[0]) {
-			case 'E': {
-
-				for (size_t i = 0; i < data.size(); i++) {
-					string cypherString = SDES::encryptString(data.at(i), ks);
-					outputFile << cypherString << endl;
-				}
-
-				break;
-			}
-			case 'D': {
-
-				for (size_t i = 0; i < data.size(); i++) {
-					string plainText = SDES::decryptString(data.at(i), ks);
-					outputFile << plainText << endl;
-				}
-
-				break;
-			}
-
-			default: {
-				currentErrorMessage = Error_t::INVAILD_PROCESS_TYPE;
-				cout << "INVALID PROCESS TYPE" << endl;
-			}
+	switch (operationType) {
+		case 'e':
+		case 'E': {
+			outputByte = SDES::encryptByte(data, ks);
+			PRINT_LABEL_WITH_NEWLINE("Secret Key: ", bitset<10>(ks_string));
+			PRINT_LABEL_WITH_NEWLINE("Plain Text: ", bitset<8>(data_string));
+			PRINT_LABEL_WITH_NEWLINE("Encrypted Text: ", bitset<8>(outputByte));
+			PRINT_SEPERATOR();
+			break;
 		}
 
-		outputFile.close();
+		case 'd':
+		case 'D': {
+			outputByte = SDES::decryptByte(data, ks);
+			PRINT_LABEL_WITH_NEWLINE("Secret Key: ", bitset<10>(ks_string));
+			PRINT_LABEL_WITH_NEWLINE("Cypher Text: ", bitset<8>(data_string));
+			PRINT_LABEL_WITH_NEWLINE("Decrypted Text: ", bitset<8>(outputByte));
+			PRINT_SEPERATOR();
+			break;
+		}
 
+		default: {
+
+		}
 	}
 
 	return 0;
