@@ -10,6 +10,7 @@
 
 class SDES {
 	public:
+		static bool logFlag;
 		static uint8_t encryptByte(const uint8_t &plainText, const uint16_t &ks);
 		static uint8_t decryptByte(const uint8_t &cypherText, const uint16_t &ks);
 	private:

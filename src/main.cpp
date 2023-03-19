@@ -8,10 +8,6 @@
 
 #include "main.h"
 
-
-
-
-
 int main(int argc, char *argv[]) {
 
 	uint8_t outputByte;
@@ -20,7 +16,13 @@ int main(int argc, char *argv[]) {
 	string ks_string = string(argv[2]);
 	string data_string = string(argv[3]);
 
+	if (argc == 5) {
+		string logStatus_string = string(argv[4]);
 
+		if(logStatus_string == "-L"){
+			SDES::logFlag = true;
+		}
+	}
 
 	char operationType = operationType_string[0];
 	uint16_t ks = static_cast<uint16_t>(bitset<10>(ks_string).to_ulong());
@@ -32,8 +34,7 @@ int main(int argc, char *argv[]) {
 			outputByte = SDES::encryptByte(data, ks);
 			PRINT_LABEL_WITH_NEWLINE("Secret Key: ", bitset<10>(ks_string));
 			PRINT_LABEL_WITH_NEWLINE("Plain Text: ", bitset<8>(data_string));
-			PRINT_LABEL_WITH_NEWLINE("Encrypted Text: ", bitset<8>(outputByte));
-			PRINT_SEPERATOR();
+			PRINT_LABEL_WITH_NEWLINE("Encrypted Text: ", bitset<8>(outputByte)); PRINT_SEPERATOR();
 			break;
 		}
 
@@ -42,8 +43,7 @@ int main(int argc, char *argv[]) {
 			outputByte = SDES::decryptByte(data, ks);
 			PRINT_LABEL_WITH_NEWLINE("Secret Key: ", bitset<10>(ks_string));
 			PRINT_LABEL_WITH_NEWLINE("Cypher Text: ", bitset<8>(data_string));
-			PRINT_LABEL_WITH_NEWLINE("Decrypted Text: ", bitset<8>(outputByte));
-			PRINT_SEPERATOR();
+			PRINT_LABEL_WITH_NEWLINE("Decrypted Text: ", bitset<8>(outputByte)); PRINT_SEPERATOR();
 			break;
 		}
 

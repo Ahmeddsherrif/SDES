@@ -19,7 +19,11 @@ using namespace std;
 
 #include "SDES.h"
 
+
+bool SDES::logFlag = false;
+
 uint16_t SDES::permutate(const uint8_t *permutationSequance, const uint16_t &inputNumber, const uint8_t &inputSize, const uint8_t &outputSize) {
+
 	LOG_LABEL_WITH_NEWLINE("BEFORE PERMUTATION:", bitset<10>(inputNumber).to_string().substr(10-inputSize, inputSize));
 
 	uint16_t outputNumber = 0;

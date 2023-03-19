@@ -13,22 +13,12 @@
 #define PRINT_SEPRATOR_CHAR_CONFIG			'='
 
 
-#define LOGGING	1
-#if LOGGING==0
-#define LOG_LABEL_WITH_NEWLINE(LABEL, INPUT)		cout <<left <<setfill(' ')<<setw(PRINT_WIDTH)<<LABEL <<INPUT<< endl
-#define LOG_WITH_NEWLINE(INPUT)						cout << INPUT << endl
-#define LOG_ALLIGN(INPUT)							cout << left <<setfill(' ')<<setw(PRINT_WIDTH) <<INPUT
-#define LOG_NEWLINE()								cout << endl
-#define LOG(INPUT)									cout << INPUT
-#define PRINT_SEPERATOR()							cout << setfill(PRINT_SEPRATOR_CHAR_CONFIG) << setw(PRINT_SEPRATOR_WIDTH_CONFIG) << "" << endl
-#else
-#define LOG_LABEL_WITH_NEWLINE(LABEL, INPUT)
-#define LOG_WITH_NEWLINE(INPUT)
-#define LOG_ALLIGN(INPUT)
-#define LOG_NEWLINE()
-#define LOG(INPUT)
-#define PRINT_SEPERATOR()
 
-#endif
+#define LOG_LABEL_WITH_NEWLINE(LABEL, INPUT)		(SDES::logFlag == true)? cout <<left <<setfill(' ')<<setw(PRINT_WIDTH)<<LABEL <<INPUT<< endl : cout << ""
+#define LOG_WITH_NEWLINE(INPUT)						(SDES::logFlag == true)? cout << INPUT << endl :cout << ""
+#define LOG_ALLIGN(INPUT)							(SDES::logFlag == true)? cout << left <<setfill(' ')<<setw(PRINT_WIDTH) <<INPUT : cout << ""
+#define LOG_NEWLINE()								(SDES::logFlag == true)? cout << endl : cout << ""
+#define LOG(INPUT)									(SDES::logFlag == true)? cout << INPUT : cout << ""
+#define PRINT_SEPERATOR()							(SDES::logFlag == true)? cout << setfill(PRINT_SEPRATOR_CHAR_CONFIG) << setw(PRINT_SEPRATOR_WIDTH_CONFIG) << "" << endl : cout << ""
 
 #endif /* DEBUG_H_ */
